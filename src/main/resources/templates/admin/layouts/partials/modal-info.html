@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<th:block th:fragment="modal-info">
+
+  <!----- Modal Delete Start ------>
+  <div class="modal fade" th:id="'modal_info_' + ${id}" tabindex="-1" role="dialog" th:aria-labelledby="'modal_info_' + ${id} + '_label'" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" th:id="'modal_info_' + ${id} + '_label'">User Information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <div class="form-control">
+              <strong>ID :</strong> <label th:text="${item.id}">id</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Name :</strong> <label th:text="${item.name}">id</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Surname :</strong> <label th:text="${item.surname}">id</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Email :</strong> <label th:text="${item.email}">id</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Age :</strong> <label th:text="${item.age}">id</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Address :</strong> <label th:text="${item.address}">id</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>City :</strong> <label th:text="${item.city}">id</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Mobile :</strong> <label th:text="${item.mobile}">id</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Active :</strong>
+              <label th:switch="${item.active}">
+                <span th:case="1" class="badge badge-success">Active</span>
+                <span th:case="0" class="badge badge-danger">Inactive</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Created :</strong> <label th:text="${#dates.format(item.createdAt, 'dd-MMM-yyyy HH:mm')}">created_at</label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-control">
+              <strong>Updated :</strong> <label th:text="${item.updatedAt}?${#dates.format(item.updatedAt, 'dd-MMM-yyyy HH:mm')} : 'Never'">updated_at</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!----- Modal Delete End ------>
+
+</th:block>
+</body>
+</html>

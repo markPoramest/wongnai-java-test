@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>SB Admin - Start Bootstrap 4 Template</title>
+  <!-- Bootstrap core CSS-->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+  <!-- Custom fonts for this template-->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}"/>
+  <!-- Custom styles for this template-->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/sb-admin.css}"/>
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <a class="navbar-brand" href="#">
+      Bootstrap 4 => Welcome,
+      <span th:text="'[' + ${#session.getAttribute('session-name')} + ']'">session</span>
+    </a>
+
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+
+        <!-- #################### Sidebars/Menu Start #################### -->
+        <th:block th:replace="admin/layouts/sidebars/menu :: menu"/>
+        <!-- #################### Sidebars/Menu End #################### -->
+
+        <!-- #################### headers/top Start #################### -->
+        <th:block th:replace="admin/layouts/headers/top :: top"/>
+        <!-- #################### headers/top End #################### -->
+    </div>
+  </nav>
+
+  <div class="content-wrapper">
+    <div class="container-fluid">
+
+      <!-- #################### Main Start #################### -->
+      <!--@yield('content')-->
+      <th:block layout:fragment="content"/>
+      <!-- #################### Main Start #################### -->
+
+    </div>
+    <!-- /.container-fluid-->
+    <!-- /.content-wrapper-->
+
+    <!-- #################### headers/top Start #################### -->
+    <th:block th:replace="admin/layouts/footers/footer :: footer"/>
+    <!-- #################### headers/top Start #################### -->
+
+    <!-- Logout Modal-->
+
+    <!-- #################### generals/modal Start #################### -->
+    <th:block th:replace="admin/layouts/partials/modal :: modal"/>
+    <!-- #################### generals/modal Start #################### -->
+
+    <!-- Bootstrap core JavaScript-->
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <!-- Core plugin JavaScript-->
+    <script type="text/javascript" th:src="@{/js/jquery.easing.min.js}"></script>
+    <!-- Custom scripts for all pages-->
+    <script type="text/javascript" th:src="@{/js/sb-admin.min.js}"></script>
+  </div>
+</body>
+
+</html>

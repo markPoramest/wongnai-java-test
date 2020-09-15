@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<th:block th:fragment="pagination">
+
+    <tfoot align="right">
+    <tr>
+        <th colspan="6" style="justify-content: right;">
+
+
+            <div th:if="${items.totalPages != 1}" class="form-group">
+                <ul class="pagination justify-content-end">
+                    <li th:class="${items.number == 0} ? 'page-item disabled'">
+                        <a class="page-link" th:href="@{/admin/user(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                    </li>
+                    <li th:class="${items.number == 0} ? 'page-item disabled'">
+                        <a class="page-link" th:href="@{/admin/user(pageSize=${selectedPageSize}, page=${items.number})}">&larr;</a>
+                    </li>
+                    <li th:class="${items.number == (page - 1)} ? 'page-item active pointer-disabled'"
+                        th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                        <a class="page-link" th:href="@{/admin/user(pageSize=${selectedPageSize}, page=${page})}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li th:class="${items.number + 1 == items.totalPages} ? 'page-item disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/user(pageSize=${selectedPageSize}, page=${items.number + 2})}">&rarr;</a>
+                    </li>
+                    <li th:class="${items.number + 1 == items.totalPages} ? 'page-item disabled'">
+                        <a class="page-link"
+                           th:href="@{/admin/user(pageSize=${selectedPageSize}, page=${items.totalPages})}">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+
+        </th>
+    </tr>
+    </tfoot>
+
+</th:block>
+</body>
+</html>

@@ -15,7 +15,9 @@ import java.util.List;
 public class FoodReviewService {
     @Autowired
     FoodReviewRepository foodReviewRepository;
-
+    public void save(FoodReview foodReview) {
+        foodReviewRepository.save(foodReview);
+    }
     public void save(MultipartFile file) {
         try {
             List<FoodReview> tutorials = CSVHelper.csvToTutorials(file.getInputStream());

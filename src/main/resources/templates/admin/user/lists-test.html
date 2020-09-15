@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{admin/layouts/template}"
+>
+  <body>
+    <div layout:fragment="content" th:remove="tag">
+      <!-- breadcrumb Start -->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Users</a>
+        </li>
+        <li class="breadcrumb-item active">Lists</li>
+      </ol>
+      <!-- breadcrumb End -->
+
+      <!-- #################### Flash Message Start #################### -->
+      <th:block
+        th:replace="admin/layouts/partials/flash-message :: flash-message"
+      />
+      <!-- #################### Flash Message Start #################### -->
+
+      <!-- Example DataTables Card-->
+      <div class="card mb-3">
+        <div class="card-header"><i class="fa fa-table"></i> Users Lists</div>
+
+        <div class="card-body">
+          <div class="table-responsive">
+            <!--  id="dataTable" -->
+            <table class="table table-bordered" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Full Name</th>
+                  <th>Mobile</th>
+                  <th>Email</th>
+                  <th>City</th>
+                  <th>Active</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <!--<tfoot>
+         <tr>
+             <th>Full Name</th>
+             <th>Mobile</th>
+             <th>Email</th>
+             <th>City</th>
+             <th>Active</th>
+             <th>Action</th>
+         </tr>
+     </tfoot>-->
+              <tfoot align="right">
+                <tr>
+                  <td>Pagination Here</td>
+                </tr>
+              </tfoot>
+
+              <tbody>
+                <tr th:each="item : ${items}">
+                  <td th:text="${item.name}">Name</td>
+                  <td th:text="${item.mobile}">Mobile</td>
+                  <td th:text="${item.email}">Email</td>
+                  <td th:text="${item.city}">City</td>
+                  <td th:switch="${item.active}">
+                    <span class="badge badge-success" th:case="1">Active</span>
+                    <span class="badge badge-danger" th:case="0">Inactive</span>
+                  </td>
+                  <td>
+                    <a href="#">
+                      <button type="button" class="btn btn-primary btn-sm">
+                        Info
+                      </button>
+                    </a>
+                    <a th:href="@{'/admin/user/edit/' + ${item.id}}">
+                      <button type="button" class="btn btn-success btn-sm">
+                        Edit
+                      </button>
+                    </a>
+                    <button
+                      type="button"
+                      class="btn btn-danger btn-sm"
+                      data-toggle="modal"
+                      data-target="#modal_user_4"
+                    >
+                      Delete
+                    </button>
+                    <!-- Include Delete Modal Confirmation -->
+
+                    <!-- #################### Modal Delete Row by Row in Table Start #################### -->
+                    <!-- Waiting for flash message -->
+                    <!-- #################### Modal Delete Row by Row in Table Start #################### -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer small text-muted">
+          Updated yesterday at 11:59 PM
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

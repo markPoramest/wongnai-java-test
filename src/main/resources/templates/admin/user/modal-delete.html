@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<th:block th:fragment="modal-delete">
+
+    <!----- Modal Delete Start ------>
+    <div class="modal fade" th:id="'modal_delete_' + ${id}" tabindex="-1" role="dialog" th:aria-labelledby="'modal_delete_' + ${id} + '_label'" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" th:id="'modal_delete_' + ${id} + '_label'">Confirmation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <strong th:text="'Do you want to delete [' + ${name} + ' ]'">text</strong>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancle</button>
+
+                    <!-- Button trigger modal -->
+                    <form method="POST" th:action="@{'/admin/user/' + ${id} }">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="">
+                        <input type="submit" value="Delete"  class="btn btn-danger" data-toggle="modal" th:data-target="'#modal_delete_' + ${id}">
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----- Modal Delete End ------>
+
+</th:block>
+</body>
+</html>

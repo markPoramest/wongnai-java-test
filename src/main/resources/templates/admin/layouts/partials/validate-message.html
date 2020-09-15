@@ -1,0 +1,14 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<body>
+<th:block th:fragment="validate-message">
+
+<!----- Show Errors Block ------>
+<div th:if="${#fields.hasErrors('global')}" class="alert alert-danger alert-block">
+    <button type="button" class="close" data-dismiss="alert" th:if="${#fields.hasErrors('global')}">×</button>
+    <strong th:if="${#fields.hasErrors('global')}" th:errors="*{global}">Error</strong>
+</div>
+
+</th:block>
+</body>
+</html>

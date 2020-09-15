@@ -13,11 +13,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 
 @Controller
@@ -60,41 +65,48 @@ public class FoodReviewController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/{id}")
-    public String getFoodbyID(ModelMap modelMap, @PathVariable("id") String id){
-        try{
+    public String getFoodbyID(ModelMap modelMap, @PathVariable("id") String id) {
+        try {
             FoodReview fd = foodReviewService.getFoodByID(Integer.parseInt(id));
-            modelMap.addAttribute("title","รีวิวลำดับที่ ");
-            modelMap.addAttribute("listfood",fd);
-            modelMap.addAttribute("keyword",id);
-            return "showFoodReview";
-        }catch (Exception e){
+            modelMap.addAttribute("title", "รีวิวลำดับที่ ");
+            modelMap.addAttribute("listfood", fd);
+            modelMap.addAttribute("keyword", id);
+            return "showFoodReviewSingle";
+        } catch (Exception e) {
             System.out.println(e);
             return null;
         }
     }
 
     @GetMapping()
-    public String getFoodbyKeyword(ModelMap modelMap, @RequestParam("query") String review){
-        try{
-            List<FoodReview> FD =  foodReviewService.getFoodByReview(review);
-            modelMap.addAttribute("title","รวม Review ที่มี Keyword คำว่า ");
-            modelMap.addAttribute("listfood",FD);
-            modelMap.addAttribute("keyword",review);
+    public String getFoodbyKeyword(ModelMap modelMap, @RequestParam("query") String review) {
+        try {
+            List<FoodReview> FD = foodReviewService.getFoodByReview(review);
+            modelMap.addAttribute("title", "รวม Review ที่มี Keyword คำว่า ");
+            modelMap.addAttribute("listfood", FD);
+            modelMap.addAttribute("keyword", review);
             return "showFoodReview";
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             return null;
         }
     }
-   @GetMapping("/editReview")
-    public String editReview(ModelMap modelMap,@ModelAttribute(value="editReview") @RequestParam("reviewID") String id, @RequestParam("review") String review){
-        FoodReview FD = new FoodReview(Integer.parseInt(id),review);
-        foodReviewService.editReview(FD);
-        modelMap.addAttribute("title","รีวิวลำดับที่ ");
-        modelMap.addAttribute("listfood",FD);
-        modelMap.addAttribute("keyword",id);
-        return "showFoodReview";
+
+    @GetMapping(value = "/edit/{id}")
+    public String edit(ModelMap modelMap, @PathVariable String id) throws Exception {
+        FoodReview foodReview = foodReviewService.getFoodByID(Integer.parseInt(id));
+        modelMap.addAttribute("listfood", foodReview);
+        return "edit";
     }
 
+    @GetMapping(value = "/editSuccess/{id}")
+    public String update(@PathVariable String id , @ModelAttribute(value="review") String review) {
+        System.out.println(review);
+        FoodReview foodReview = new FoodReview(Integer.parseInt(id),review);
+        foodReviewService.save(foodReview);
+        return "redirect:/reviews/"+id;
+
+    }
 }

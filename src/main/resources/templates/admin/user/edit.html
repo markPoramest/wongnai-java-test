@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{admin/layouts/template}"
+>
+  <body>
+    <div layout:fragment="content" th:remove="tag">
+      <!-- breadcrumb Start -->
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a href="#">Users</a>
+        </li>
+        <li class="breadcrumb-item active">Edit</li>
+      </ol>
+      <!-- breadcrumb End -->
+
+      <div class="card mb-3">
+        <div class="card-header">Update User</div>
+        <div class="card-body">
+          <form
+            method="POST"
+            th:action="@{'/admin/user/' + ${id} }"
+            th:object="${user}"
+          >
+            <!----- Show Errors Block ------>
+            <th:block
+              th:replace="admin/layouts/partials/validate-message :: validate-message"
+            />
+            <div>
+              <span
+                th:if="${#fields.hasErrors('password')}"
+                th:errors="*{password}"
+                class="text-danger"
+                >Password Errors</span
+              >
+              <span
+                th:if="${#fields.hasErrors('confirm_password')}"
+                th:errors="*{confirm_password}"
+                class="text-danger"
+                >confirm_password Errors</span
+              >
+              <span
+                th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"
+                class="text-danger"
+                >email Errors</span
+              >
+            </div>
+
+            <div class="card border-dark">
+              <div class="card-header">
+                Login Information
+              </div>
+              <div class="card-body text-dark">
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <label class="form-control" id="email" th:text="${email}"
+                    >Email</label
+                  >
+                </div>
+              </div>
+            </div>
+            <br />
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  <label for="name">First name</label>
+                  <input
+                    class="form-control"
+                    id="name"
+                    th:field="*{name}"
+                    type="text"
+                    aria-describedby="nameHelp"
+                    placeholder="Enter first name"
+                  />
+                  <span
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}"
+                    class="text-danger"
+                    >Errors</span
+                  >
+                </div>
+                <div class="col-md-6">
+                  <label for="surname">Last name</label>
+                  <input
+                    class="form-control"
+                    id="surname"
+                    th:field="*{surname}"
+                    value=""
+                    type="text"
+                    aria-describedby="nameHelp"
+                    placeholder="Enter last name"
+                  />
+                  <span
+                    th:if="${#fields.hasErrors('surname')}"
+                    th:errors="*{surname}"
+                    class="text-danger"
+                    >Errors</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  <label for="mobile">Mobile</label>
+                  <input
+                    class="form-control"
+                    id="mobile"
+                    th:field="*{mobile}"
+                    type="text"
+                    aria-describedby="nameHelp"
+                    placeholder="Enter first name"
+                  />
+                  <span
+                    th:if="${#fields.hasErrors('mobile')}"
+                    th:errors="*{mobile}"
+                    class="text-danger"
+                    >Errors</span
+                  >
+                </div>
+                <div class="col-md-6">
+                  <label for="age">Age</label>
+                  <input
+                    class="form-control"
+                    id="age"
+                    th:field="*{age}"
+                    value=""
+                    type="text"
+                    aria-describedby="nameHelp"
+                    placeholder="Enter last name"
+                  />
+                  <span
+                    th:if="${#fields.hasErrors('age')}"
+                    th:errors="*{age}"
+                    class="text-danger"
+                    >Errors</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6">
+                  <label for="address">Address</label>
+                  <input
+                    class="form-control"
+                    id="address"
+                    th:field="*{address}"
+                    value=""
+                    type="text"
+                    aria-describedby="nameHelp"
+                    placeholder="Enter first name"
+                  />
+                  <span
+                    th:if="${#fields.hasErrors('address')}"
+                    th:errors="*{address}"
+                    class="text-danger"
+                    >Errors</span
+                  >
+                </div>
+                <div class="col-md-6">
+                  <label for="city">City</label>
+                  <select class="form-control" th:field="*{city}">
+                    <option value=""> --- Select City ---- </option>
+                    <option
+                      th:each="city : ${cities}"
+                      th:value="${city.key}"
+                      th:text="${city.value}"
+                      th:selected="${city == city.key}"
+                    >
+                    </option
+                  ></select>
+
+                  <span
+                    th:if="${#fields.hasErrors('city')}"
+                    th:errors="*{city}"
+                    class="text-danger"
+                    >Errors</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <input type="hidden" name="_method" value="PUT" />
+            <!--<input type="hidden" name="_token" value="">-->
+            <input type="submit" value="Submit" class="btn btn-primary" />&nbsp;
+            <input type="reset" value="Reset" class="btn btn-danger" />
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

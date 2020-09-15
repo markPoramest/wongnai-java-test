@@ -30,7 +30,7 @@
                         <td th:text="${listfood.reviewID}">1</td>
                         <td th:text="${listfood.review}">1</td>
                         <!-- <td><a href="#" th:text="${message.name}">Title ...</a></td>-->
-                        <td> <a th:href="@{'reviews/edit/' + ${listfood.reviewID} }">
+                        <td> <a th:href="@{'edit/' + ${listfood.reviewID} }">
                             <button type="button" class="btn btn-success btn-sm">
                                 Edit
                             </button>
