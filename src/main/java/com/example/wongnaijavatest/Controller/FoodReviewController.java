@@ -87,9 +87,14 @@ public class FoodReviewController {
             return null;
         }
     }
-    @PutMapping("/{id}")
-    public String editReview(ModelMap modelMap,@ModelAttribute(value="editReview") FoodReview foodReview){
-
+   @GetMapping("/editReview")
+    public String editReview(ModelMap modelMap,@ModelAttribute(value="editReview") @RequestParam("reviewID") String id, @RequestParam("review") String review){
+        FoodReview FD = new FoodReview(Integer.parseInt(id),review);
+        foodReviewService.editReview(FD);
+        modelMap.addAttribute("title","รีวิวลำดับที่ ");
+        modelMap.addAttribute("listfood",FD);
+        modelMap.addAttribute("keyword",id);
+        return "showFoodReview";
     }
 
 }
