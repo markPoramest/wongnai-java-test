@@ -42,10 +42,6 @@ public class FoodReviewService {
         return foodReviewRepository.findByReview(review);
     }
 
-    public List<FoodReview> getAllFoods() {
-        return foodReviewRepository.findAll();
-    }
-
     public void editReview(FoodReview foodReview){
         try {
             foodReviewRepository.save(foodReview);

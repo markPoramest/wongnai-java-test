@@ -38,7 +38,6 @@ public class FoodReviewController {
         if (CSVHelper.hasCSVFormat(file)) {
             try {
                 foodReviewService.save(file);
-
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
                 return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
             } catch (Exception e) {
@@ -47,23 +46,8 @@ public class FoodReviewController {
                 return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
             }
         }
-
         message = "Please upload a csv file!";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
-    }
-
-    @GetMapping("/food")
-    public ResponseEntity<List<FoodReview>> getAllFoodReview() {
-        try {
-            List<FoodReview> foodReviews = foodReviewService.getAllFoods();
-
-            if (foodReviews.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(foodReviews, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
     }
 
     @GetMapping("/{id}")
@@ -108,5 +92,18 @@ public class FoodReviewController {
         foodReviewService.save(foodReview);
         return "redirect:/reviews/"+id;
 
+    }
+
+    @PutMapping("/{id}")
+    public String editFoodAPI(@PathVariable("id") String id ,@RequestBody FoodReview foodReview) {
+        try {
+            FoodReview fd = foodReviewService.getFoodByID(Integer.parseInt(id));
+            fd.setReview(foodReview.getReview());
+            foodReviewService.save(fd);
+            return "showFoodReviewSingle";
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }
