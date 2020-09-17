@@ -15,6 +15,7 @@ import java.util.List;
 public class FoodReviewService {
     @Autowired
     FoodReviewRepository foodReviewRepository;
+
     public void save(FoodReview foodReview) {
         foodReviewRepository.save(foodReview);
     }

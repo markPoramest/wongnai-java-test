@@ -80,17 +80,27 @@ public class FoodReviewController {
 
     @GetMapping(value = "/edit/{id}")
     public String edit(ModelMap modelMap, @PathVariable String id) throws Exception {
-        FoodReview foodReview = foodReviewService.getFoodByID(Integer.parseInt(id));
-        modelMap.addAttribute("listfood", foodReview);
-        return "edit";
+        try{
+            FoodReview foodReview = foodReviewService.getFoodByID(Integer.parseInt(id));
+            modelMap.addAttribute("listfood", foodReview);
+            return "edit";
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     @GetMapping(value = "/editSuccess/{id}")
     public String update(@PathVariable String id , @ModelAttribute(value="review") String review) {
-        System.out.println(review);
-        FoodReview foodReview = new FoodReview(Integer.parseInt(id),review);
-        foodReviewService.save(foodReview);
-        return "redirect:/reviews/"+id;
+        try{
+            System.out.println(review);
+            FoodReview foodReview = new FoodReview(Integer.parseInt(id),review);
+            foodReviewService.save(foodReview);
+            return "redirect:/reviews/"+id;
+        }catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
 
     }
 

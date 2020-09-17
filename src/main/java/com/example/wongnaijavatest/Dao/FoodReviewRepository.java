@@ -12,4 +12,6 @@ public interface FoodReviewRepository extends JpaRepository<FoodReview,Integer> 
 
     @Query("Select r from FoodReview r where Review like %?1%")
     public List<FoodReview> findByReview(String review);
+
+
 }
