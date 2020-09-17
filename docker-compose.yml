@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+
+  myapp-mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD : 024241682
+      MYSQL_DATABASE : wongnai
+
+    ports:
+      - "3307:3306"
+
+  myapp-main:
+    image: wongnai-java-test
+    depends_on:
+      - myapp-mysql
+    ports:
+      - "5555:5555"
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://myapp-mysql:3306/wongnai?allowPublicKeyRetrieval=true&useJDBCCompliantTimezoneShift=true&useSSL=false
+      spring_datasource_username : root
+      spring_datasource_password : 024241682
